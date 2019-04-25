@@ -1,7 +1,33 @@
 {
   "name": "isom",
-  "scripts": {
-    "test": "echo \"This is a placeholder\" && exit 0"
+  "version": "0.1.0",
+  "private": false,
+  "engines": {
+    "node": ">= 10"
   },
-  "version": "1.0.0"
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Kevnz/isom.git"
+  },
+  "description": "Command line task runner",
+  "bin": "./bin/index.js",
+  "files": [
+    "src",
+    "bin"
+  ],
+  "scripts": {
+    "test": "jest --config=jest.config.js --detectOpenHandles --forceExit --watch",
+    "lint": "eslint ./src"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@kev_nz/eslint-config": "^3.2.1",
+    "@kev_nz/publisher": "^3.0.1",
+    "coveralls": "^3.0.3",
+    "eslint": "^5.16.0"
+  },
+  "dependencies": {
+    "@kev_nz/async-tools": "^1.1.1",
+    "chalk": "^2.4.2"
+  }
 }
