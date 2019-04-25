@@ -1,26 +1,28 @@
 #!/usr/bin/env node
+
 const fs = require('fs')
 const path = require('path')
+const fse = require('fs-extra')
 const chalk = require('chalk')
 const { each } = require('@kev_nz/async-tools')
 const spawned = require('../src/spawn')
 
-console.info(chalk.blue.bold('ISOM'))
-const curDir = process.cwd()
+console.info(chalk.bgBlue.white.bold('ISOM'))
 
-const example = {
-  start: 'node ./src/index.js',
-}
+const curDir = process.cwd()
 
 fs.readFile(path.join(curDir, 'tasks.json'), 'utf8', async (err, result) => {
   if (err && err.code === 'ENOENT') {
-    console.error('No tasks.json file')
-    // write example file
-    return
+    console.info(chalk.yellow('No tasks.json file'))
+    const pkg = require(path.join(curDir, 'package.json'))
+    await fse.writeFile('tasks.json', JSON.stringify(pkg.scripts, null, 2))
+
+    console.info(chalk.bold('A tasks.json file has been created'))
+    process.exit(0)
   } else if (err) {
-    console.error('Error reading tasks.json file')
+    console.error(chalk.red('Error reading tasks.json file'))
     console.error(err)
-    return
+    process.exit(1)
   }
 
   const task = process.argv.length > 2 ? process.argv.pop() : 'start'
@@ -30,6 +32,7 @@ fs.readFile(path.join(curDir, 'tasks.json'), 'utf8', async (err, result) => {
 
   const precommand = tasks[`pre${task}`]
   const postcommand = tasks[`post${task}`]
+
   try {
     if (precommand && Array.isArray(precommand)) {
       await each(precommand, spawned)
