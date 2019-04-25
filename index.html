@@ -29,6 +29,18 @@
   <h1 id="isom">Isom</h1>
 <p>Take your task runner further</p>
 <p>If you have a <code>tasks.json</code> file running <code>isom</code> or <code>npx isom</code> will run the task you pass in or the start task.</p>
+<h2 id="example">Example</h2>
+<p>The <code>tasks.json</code> file</p>
+<pre><code class="hljs json language-json">{
+  <span class="hljs-attr">"prebuild"</span>: [<span class="hljs-string">"npx eslint ./src"</span>, <span class="hljs-string">"npx jest"</span>, <span class="hljs-string">"rm -rf dist"</span>],
+  <span class="hljs-attr">"build"</span>: <span class="hljs-string">"npx webpack --config ./src/webpack/prod.config.js --mode production"</span>,
+  <span class="hljs-attr">"postbuild"</span>: [<span class="hljs-string">"npm publish"</span>, <span class="hljs-string">"npx publisher"</span>, <span class="hljs-string">"node ./src/tasks/announce.js"</span>]
+}</code></pre>
+<p>Then from the command line you can either run <code>npx isom build</code> or if installed globally <code>isom build</code></p>
+<p>You can use it within your <code>scripts</code> so in your <code>package.json</code></p>
+<pre><code class="hljs json language-json">{
+  <span class="hljs-attr">"build"</span>: <span class="hljs-string">"isom build"</span>
+}</code></pre>
   </div>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-64038939-2"></script>
 <script>
