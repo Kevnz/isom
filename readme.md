@@ -1,20 +1,5 @@
-# My Custom Module
+# Isom
 
-```
-- .assets
--- extend.css
--- head.html
--- foot.html
-- .circleci
--- config.yml
-- src
--- index.js
--- __tests__
---- index.test.js
-- .eslintrc.json
-- .gitignore
-- package.json
-- readme.md
+Take your task runner further
 
-```
-
+If you have a `tasks.json` file running `isom` or `npx isom` will run the task you pass in or the start task.
