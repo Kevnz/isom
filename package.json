@@ -9,6 +9,7 @@
     "type": "git",
     "url": "git+ssh://git@github.com/Kevnz/isom.git"
   },
+  "author": "Kevin Isom <kevin.isom@gmail.com>",
   "description": "Command line task runner",
   "bin": "./bin/index.js",
   "files": [
