@@ -11,6 +11,17 @@
   },
   "author": "Kevin Isom <kevin.isom@gmail.com>",
   "description": "Command line task runner",
+  "keywords": [
+    "task runner",
+    "cli",
+    "tasks",
+    "tools",
+    "helpers"
+  ],
+  "bugs": {
+    "url": "https://github.com/Kevnz/isom/issues"
+  },
+  "homepage": "https://kevinisom.info/isom",
   "bin": "./bin/index.js",
   "files": [
     "src",
