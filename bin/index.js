@@ -4,7 +4,7 @@ const fs = require('fs')
 const path = require('path')
 const fse = require('fs-extra')
 const chalk = require('chalk')
-const { each } = require('@kev_nz/async-tools')
+const { each, mapper } = require('@kev_nz/async-tools')
 const spawned = require('../src/spawn')
 
 console.info(chalk.bgBlue.white.bold('ISOM'))
@@ -40,7 +40,11 @@ fs.readFile(path.join(curDir, 'tasks.json'), 'utf8', async (err, result) => {
       await spawned(precommand)
     }
 
-    await spawned(command)
+    if (Array.isArray(command)) {
+      await mapper(command, spawned)
+    } else {
+      await spawned(command)
+    }
 
     if (postcommand && Array.isArray(postcommand)) {
       await each(postcommand, spawned)
