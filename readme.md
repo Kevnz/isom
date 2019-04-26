@@ -26,3 +26,31 @@ You can use it within your `scripts` so in your `package.json`
 }
 ```
 
+## Parallel Tasks
+
+In addition to single items, a task can be an array of items. If the array is a pretask they execute in a series, however if the array is the main task to run, the tasks run in parallel.
+
+### Example
+
+```json
+{
+  "predev": [
+    "docker-compose -f ./docker/docker-compose.yml up --detach",
+    "node ./src/scripts/delay.js",
+    "npx knex migrate:latest",
+    "npx knex seed:run"
+  ],
+  "dev": [
+    "nodemon ./src/server/index.js",
+    "webpack-dev-server --config ./src/webpack/dev.config.js --mode development"
+  ]
+}
+```
+
+Then from command line
+
+```bash
+isom dev
+```
+
+Then the `predev` tasks run in order then then `dev` task executes both tasks at the same time.
