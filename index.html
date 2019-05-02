@@ -30,18 +30,45 @@
   <h1 id="isom">Isom</h1>
 <p>Take your task runner further</p>
 <p>If you have a <code>tasks.json</code> file running <code>isom</code> or <code>npx isom</code> will run the task you pass in or the start task.</p>
+<h2 id="lifecyle">Lifecyle</h2>
+<p>For every task you can define you can also have a <code>pre</code> <code>post</code> as well as a <code>cleanup</code> associated with it.</p>
+<ul>
+<li><code>pre</code> runs before the main command.</li>
+<li><code>command</code> runs if the <code>pre</code> command is successful</li>
+<li><code>post</code> runs if the <code>command</code> was successful</li>
+<li><code>clean</code> runs regardless of the success or failure of the other tasks</li>
+</ul>
 <h2 id="example">Example</h2>
 <p>The <code>tasks.json</code> file</p>
 <pre><code class="hljs json language-json">{
   <span class="hljs-attr">"prebuild"</span>: [<span class="hljs-string">"npx eslint ./src"</span>, <span class="hljs-string">"npx jest"</span>, <span class="hljs-string">"rm -rf dist"</span>],
   <span class="hljs-attr">"build"</span>: <span class="hljs-string">"npx webpack --config ./src/webpack/prod.config.js --mode production"</span>,
-  <span class="hljs-attr">"postbuild"</span>: [<span class="hljs-string">"npm publish"</span>, <span class="hljs-string">"npx publisher"</span>, <span class="hljs-string">"node ./src/tasks/announce.js"</span>]
+  <span class="hljs-attr">"postbuild"</span>: [<span class="hljs-string">"npm publish"</span>, <span class="hljs-string">"npx publisher"</span>, <span class="hljs-string">"node ./src/tasks/announce.js"</span>],
+  <span class="hljs-attr">"cleanupbuild"</span>: <span class="hljs-string">"rm -rf dist"</span>
 }</code></pre>
 <p>Then from the command line you can either run <code>npx isom build</code> or if installed globally <code>isom build</code></p>
 <p>You can use it within your <code>scripts</code> so in your <code>package.json</code></p>
 <pre><code class="hljs json language-json">{
   <span class="hljs-attr">"build"</span>: <span class="hljs-string">"isom build"</span>
 }</code></pre>
+<h2 id="parallel-tasks">Parallel Tasks</h2>
+<p>In addition to single items, a task can be an array of items. If the array is a pretask they execute in a series, however if the array is the main task to run, the tasks run in parallel.</p>
+<h3 id="example-1">Example</h3>
+<pre><code class="hljs json language-json">{
+  <span class="hljs-attr">"predev"</span>: [
+    <span class="hljs-string">"docker-compose -f ./docker/docker-compose.yml up --detach"</span>,
+    <span class="hljs-string">"node ./src/scripts/delay.js"</span>,
+    <span class="hljs-string">"npx knex migrate:latest"</span>,
+    <span class="hljs-string">"npx knex seed:run"</span>
+  ],
+  <span class="hljs-attr">"dev"</span>: [
+    <span class="hljs-string">"nodemon ./src/server/index.js"</span>,
+    <span class="hljs-string">"webpack-dev-server --config ./src/webpack/dev.config.js --mode development"</span>
+  ]
+}</code></pre>
+<p>Then from command line</p>
+<pre><code class="hljs bash language-bash">isom dev</code></pre>
+<p>Then the <code>predev</code> tasks run in order then then <code>dev</code> task executes both tasks at the same time.</p>
   </div>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-64038939-2"></script>
 <script>
