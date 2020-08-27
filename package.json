@@ -28,8 +28,9 @@
     "bin"
   ],
   "scripts": {
-    "test": "jest --config=jest.config.js --detectOpenHandles --forceExit --watch",
-    "lint": "eslint ./src"
+    "lint": "eslint ./src",
+    "postversion": "npm publish --access=public",
+    "postpublish": "git push origin --all --follow-tags"
   },
   "license": "MIT",
   "devDependencies": {
