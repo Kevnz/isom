@@ -25,7 +25,8 @@
   "bin": "./bin/run.js",
   "files": [
     "src",
-    "bin"
+    "bin",
+    "lib"
   ],
   "scripts": {
     "build": "babel src --out-dir lib",
