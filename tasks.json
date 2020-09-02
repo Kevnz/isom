@@ -1,0 +1,49 @@
+{
+  "test": [
+    "node ./tests/tasks/simple.js",
+    "node ./tests/tasks/second.js"
+  ],
+  "trio": [
+    "node ./tests/tasks/simple.js",
+    "node ./tests/tasks/second.js",
+    "node ./tests/tasks/third.js"
+  ],
+  "pretesting": [
+    "node ./tests/tasks/work.js"
+  ],
+  "testing": [
+    "node ./tests/tasks/simple.js",
+    "node ./tests/tasks/second.js --color",
+    "node ./tests/tasks/third.js",
+    "node ./tests/tasks/echo.js last-task"
+  ],
+  "posttesting": [
+    "node ./tests/tasks/post-work.js"
+  ],
+  "cleanuptesting": [
+    "node ./tests/tasks/post-work.js"
+  ],
+  "prefinish": [
+    "node ./tests/tasks/work.js"
+  ],
+  "finish": [
+    "node ./tests/tasks/finish.js",
+    "node ./tests/tasks/finish.js"
+  ],
+  "postfinish": [
+    "node ./tests/tasks/post-work.js"
+  ],
+  "cleanupfinish": [
+    "node ./tests/tasks/post-work.js"
+  ],
+  "single": [
+    "node ./tests/tasks/finish.js"
+  ],
+  "echo": [
+    "node ./tests/tasks/echo.js echo-task"
+  ],
+  "double": [
+    "node ./tests/tasks/echo.js first-task",
+    "node ./tests/tasks/echo.js second-task"
+  ]
+}
