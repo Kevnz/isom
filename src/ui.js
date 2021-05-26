@@ -111,7 +111,7 @@ const App = ({ tasks, end }) => {
         index={index}
         key={`task-${task}-${index}`}
         command={task}
-        label={`Task - ${task} - ${percent}`}
+        label={`Task - ${task}`}
         width={`${percent}%`}
         height="100%"
         top="0"
