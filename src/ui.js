@@ -6,7 +6,7 @@ import React, {
   useState,
 } from 'react'
 import blessed from 'blessed'
-
+import { each } from '@kev_nz/async-tools'
 import { createBlessedRenderer } from 'react-blessed'
 
 const render = createBlessedRenderer(blessed)
@@ -90,6 +90,8 @@ const Job = ({ label, command, index, ...props }) => {
     <log
       ref={boxRef}
       label={label}
+      keys={true}
+      mouse={true}
       scrollable={true}
       tags={true}
       // eslint-disable-next-line react/no-unknown-property
@@ -152,9 +154,9 @@ module.exports = (tasksToRun, postcommand, cleanupcommand, tryTask) => {
   }
 
   screen.key(['escape', 'q', 'C-c'], async function(ch, key) {
-    runningTasks.forEach(killTask => {
+    await each(runningTasks, async killTask => {
       try {
-        killTask()
+        await killTask()
       } catch (err) {
         console.error('?', err)
       }
