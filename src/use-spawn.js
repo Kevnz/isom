@@ -19,11 +19,11 @@ module.exports = (command, index) => {
       },
       { env: { FORCE_COLOR: 'true' } }
     )
+
     return subTask
   }
-  const killTask = () => {
-    subTask.kill('SIGINT')
-  }
+  const killTask = () => subTask.kill('SIGINT')
+
   useEffect(() => {
     if (runningTasks[command] === index) {
       return

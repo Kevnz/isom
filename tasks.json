@@ -39,6 +39,10 @@
   "single": [
     "node ./tests/tasks/finish.js"
   ],
+  "two": [
+    "node ./tests/tasks/finish.js",
+    "node ./tests/tasks/finish.js"
+  ],
   "echo": [
     "node ./tests/tasks/echo.js echo-task"
   ],
