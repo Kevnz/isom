@@ -25,6 +25,7 @@ module.exports = (command, index) => {
   const killTask = () => subTask.kill('SIGINT')
 
   useEffect(() => {
+    let mounted = true
     if (runningTasks[command] === index) {
       return
     }
@@ -42,10 +43,13 @@ module.exports = (command, index) => {
       setMessage(inputs.join(''))
     })
     cmd.on('exit', code => {
-      if (code === 0) {
+      if (code === 0 && mounted) {
         setFinished(true)
       }
     })
+    return function cleanup() {
+      mounted = false
+    }
   }, [])
 
   return [message, finished, killTask]
